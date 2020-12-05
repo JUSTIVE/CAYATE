@@ -2,26 +2,28 @@ package Cayate
 
 import Cayate.Attr.{Attr, Display, Size}
 
-class Node(){}
+trait Node
 
-class Document() extends Node(){}
-class CharacterData(val value:String) extends Node(){}
-class Element() extends Node(){}
-
-
-class HTMLDocument() extends Document(){}
-
-case class Text(override val value: String) extends CharacterData(value){
-
+trait Document extends Node
+trait CharacterData extends Node {
+  def value: String
 }
-case class Comment(override val value: String) extends CharacterData(value){
+trait Element extends Node
 
+
+object HTMLDocument extends Document
+
+case class Text(_value: String) extends CharacterData {
+  override def value: String = _value
+}
+case class Comment(_value: String) extends CharacterData {
+  override def value: String = _value
 }
 
 class HTMLElement(val size:Size,
                   val display:Display,
                   val attributes:Array[Attr],
-                  val children:Array[HTMLElement]) extends Element(){
+                  val children:Array[HTMLElement]) extends Element {
 }
 
 //class HTMLBodyElement extends HTMLElement
