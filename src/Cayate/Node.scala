@@ -1,14 +1,47 @@
 package Cayate
 
-abstract class Node
+import Cayate.Attr.{Attr, Display, Size}
 
-case class Document() extends Node
-case class CharacterData() extends Node
-case class Element() extends Node
+class Node(){}
+
+class Document() extends Node(){}
+class CharacterData(val value:String) extends Node(){}
+class Element() extends Node(){}
 
 
-case class HTMLDocument() extends Document
+class HTMLDocument() extends Document(){}
 
-case class Text() extends CharacterData
-case class Comment() extends CharacterData
+case class Text(override val value: String) extends CharacterData(value){
 
+}
+case class Comment(override val value: String) extends CharacterData(value){
+
+}
+
+class HTMLElement(val size:Size,
+                  val display:Display,
+                  val attributes:Array[Attr],
+                  val children:Array[HTMLElement]) extends Element(){
+}
+
+//class HTMLBodyElement extends HTMLElement
+//trait HTMLTitleElement extends HTMLElement
+//trait HTMLParagraphElement extends HTMLElement
+//trait HTMLInputElement extends HTMLElement
+//trait HTMLTableElement extends HTMLElement
+
+case class Div(override val size:Size,
+               override val display:Display,
+               override val children: Array[HTMLElement]=Array.empty[HTMLElement],
+               override val attributes:Array[Attr]=Array.empty[Attr])
+  extends HTMLElement(size,display,attributes,children){
+
+}
+
+case class HTMLHeadElement(override val size:Size,
+                           override val display:Display,
+                           override val children: Array[HTMLElement]=Array.empty[HTMLElement],
+                           override val attributes:Array[Attr]=Array.empty[Attr])
+  extends HTMLElement(size,display,attributes,children){
+
+}

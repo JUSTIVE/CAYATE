@@ -1,26 +1,29 @@
 package Cayate.Attr
 
-import Cayate.{Attr, Node}
+import Cayate.Node
 
-case class Attr() extends Node
+class Attr extends Node
 
 case class Size(width:SizeUnit,height:SizeUnit)
 object Size{
-  def zero(): Size ={
+  val zero: Size ={
     Size(width=Pixel(0),height=Pixel(0))
   }
 }
 
-case object Display extends Enumeration{
-  type Display = Value
-  val Block: Display.Value =Value("block")
-  val InlineBlock:Display.Value =Value("inline-block")
-  val Flex: Display.Value =Value("flex")
-  val inlineFlex:Display.Value =Value("inline-flex")
+abstract class Display extends Attr{
+  def value:String
 }
-case object Position extends Attr  {
-  type Position = Value
-  val Relative: Position.Value =Value("relative")
-  val Absolute: Position.Value =Value("absolute")
-  val Fixed: Position.Value =Value("fixed")
+case object Block extends Display{def value: String = "block"}
+case object InlineBlock extends Display{  def value:String = "inline-block"}
+case object Flex extends Display{  def value:String = "flex"}
+case object InlineFlex extends Display{  def value:String = "inline-flex"}
+
+
+abstract class Position extends Attr  {
+  def value:String
 }
+
+object Relative extends Position{def value:String = "relative"}
+object Absolute extends Position{def value:String = "absolute"}
+object Fixed extends Position{def value:String = "fixed"}
