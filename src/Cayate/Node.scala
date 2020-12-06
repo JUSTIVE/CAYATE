@@ -32,18 +32,35 @@ class HTMLElement(val size:Size,
 //trait HTMLInputElement extends HTMLElement
 //trait HTMLTableElement extends HTMLElement
 
+trait MainAxisAlignment {
+  case object Center extends MainAxisAlignment
+  case object End extends MainAxisAlignment
+  case object Start extends MainAxisAlignment
+  case object SpaceAround extends MainAxisAlignment
+  case object spaceBetween extends MainAxisAlignment
+  case object spaceEvenly extends MainAxisAlignment
+}
+trait CrossAxisAlignment{
+  case object Center extends CrossAxisAlignment
+  case object End extends CrossAxisAlignment
+  case object Start extends CrossAxisAlignment
+}
+
+
+trait Expandable{
+  val mainAxisAlignment:MainAxisAlignment
+  val crossAxisAlignment:CrossAxisAlignment
+}
+
 case class Div(override val size:Size,
                override val display:Display,
                override val children: Array[HTMLElement]=Array.empty[HTMLElement],
                override val attributes:Array[Attr]=Array.empty[Attr])
-  extends HTMLElement(size,display,attributes,children){
+  extends HTMLElement(size,display,attributes,children)
 
-}
 
 case class HTMLHeadElement(override val size:Size,
                            override val display:Display,
                            override val children: Array[HTMLElement]=Array.empty[HTMLElement],
                            override val attributes:Array[Attr]=Array.empty[Attr])
-  extends HTMLElement(size,display,attributes,children){
-
-}
+  extends HTMLElement(size,display,attributes,children)

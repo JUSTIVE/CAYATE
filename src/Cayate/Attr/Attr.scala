@@ -1,5 +1,6 @@
 package Cayate.Attr
 
+
 import Cayate.Node
 
 trait Attr extends Node
@@ -7,21 +8,22 @@ trait Attr extends Node
 case class Size(width: SizeUnit, height: SizeUnit)
 
 object Size {
-  def zero: Size = Size(Pixel(0), Pixel(0))
+  def zero: Size = Size(SizeUnit.Pixel(0), SizeUnit.Pixel(0))
 }
 
-trait Display extends Attr {
-  def value: String
-}
-case object Block extends Display{ def value: String = "block" }
-case object InlineBlock extends Display{ def value:String = "inline-block" }
-case object Flex extends Display{ def value:String = "flex" }
-case object InlineFlex extends Display{ def value:String = "inline-flex" }
+abstract sealed class Display extends Attr
 
-trait Position extends Attr {
-  def value: String
+object Display extends Attr {
+  case object Block extends Display
+  case object InlineBlock extends Display
+  case object Flex extends Display
+  case object InlineFlex extends Display
 }
 
-object Relative extends Position{ def value:String = "relative" }
-object Absolute extends Position{def value:String = "absolute" }
-object Fixed extends Position{ def value:String = "fixed" }
+abstract sealed class Position extends Attr
+
+object Position {
+  object Relative extends Position
+  object Absolute extends Position
+  object Fixed extends Position
+}

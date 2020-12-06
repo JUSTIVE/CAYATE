@@ -1,6 +1,7 @@
 package Cayate
 
-import Cayate.Attr.{Flex, Pixel, Size}
+import Cayate.Attr.SizeUnit.Pixel
+import Cayate.Attr.{Display, Size}
 
 
 object temp {
@@ -8,12 +9,21 @@ object temp {
     println(testrun())
   }
   def testrun(): String ={
-    new Renderer().renderElement(
+    new Renderer(false).translateElement(
       Div(
         size = Size(
-          width=Pixel[Int](value = 50),
+          width=Pixel(value = 50),
           height = Pixel(value = 50)),
-        display = Flex
+        display = Display.Flex,
+        children = Array(
+          Div(
+            size = Size(
+              width = Pixel(value=30),
+              height = Pixel(value=50)
+            ),
+            display = Display.Flex
+          )
+        )
       )
     )
   }
